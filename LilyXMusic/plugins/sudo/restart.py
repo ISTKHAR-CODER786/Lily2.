@@ -11,14 +11,14 @@ from pyrogram import filters
 
 import config
 from LilyxMusic import app
-from SACHIN_MUSIC.misc import HAPP, SUDOERS, XCB
-from SACHIN_MUSIC.utils.database import (
+from LilyXMusic.misc import HAPP, SUDOERS, XCB
+from LilyXMusic.utils.database import (
     get_active_chats,
     remove_active_chat,
     remove_active_video_chat,
 )
-from SACHIN_MUSIC.utils.decorators.language import language
-from SACHIN_MUSIC.utils.pastebin import SACHINBin
+from LilyXMusic.utils.decorators.language import language
+from LilyXMusic.utils.pastebin import SACHINBin
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
