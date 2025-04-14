@@ -2,7 +2,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram import Client, filters, enums 
 
 import config
-from SONALI_MUSIC import app
+from LilyxMusic import app
 
 class BUTTONS(object):
     BBUTTON = [
