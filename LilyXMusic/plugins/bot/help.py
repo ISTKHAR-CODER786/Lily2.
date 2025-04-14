@@ -1,6 +1,8 @@
 from typing import Union
+
 from pyrogram import filters, types
-from pyrogram.types import InlineKeyboardMarkup, Message, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, Message
+
 from LilyXMusic import app
 from LilyXMusic.utils import help_pannel
 from LilyXMusic.utils.database import get_lang
@@ -8,15 +10,6 @@ from LilyXMusic.utils.decorators.language import LanguageStart, languageCB
 from LilyXMusic.utils.inline.help import help_back_markup, private_help_panel
 from config import BANNED_USERS, START_IMG_URL, SUPPORT_CHAT
 from strings import get_string, helpers
-from LilyXMusic.help.buttons import BUTTONS
-from LilyXMusic.help.helper import Helper
-
-#------------------------------------------------------------------------------------------------------------------------
-# MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | MUSIC | 
-#------------------------------------------------------------------------------------------------------------------------
-
-
-
 
 
 @app.on_message(filters.command(["help"]) & filters.private & ~BANNED_USERS)
@@ -58,6 +51,7 @@ async def help_com_group(client, message: Message, _):
     keyboard = private_help_panel(_)
     await message.reply_text(_["help_2"], reply_markup=InlineKeyboardMarkup(keyboard))
 
+
 @app.on_callback_query(filters.regex("help_callback") & ~BANNED_USERS)
 @languageCB
 async def helper_cb(client, CallbackQuery, _):
@@ -94,167 +88,3 @@ async def helper_cb(client, CallbackQuery, _):
         await CallbackQuery.edit_message_text(helpers.HELP_14, reply_markup=keyboard)
     elif cb == "hb15":
         await CallbackQuery.edit_message_text(helpers.HELP_15, reply_markup=keyboard)
-
-
-
-
-
-#------------------------------------------------------------------------------------------------------------------------
-# MANAGEMENT | MANAGEMENT | MANAGEMENT | MANAGEMENT | MANAGEMENT | MANAGEMENT | MANAGEMENT | MANAGEMENT | MANAGEMENT | 
-#------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-@app.on_callback_query(filters.regex("MANAGEMENT_CP") & ~BANNED_USERS)
-async def helper_cb(client, CallbackQuery):
-    await CallbackQuery.edit_message_text(Helper.HELP_M, reply_markup=InlineKeyboardMarkup(BUTTONS.MBUTTON))
-    
-        
-@app.on_callback_query(filters.regex('MANAGEMENT_BACK'))      
-async def mb_plugin_button(client, CallbackQuery):
-    callback_data = CallbackQuery.data.strip()
-    cb = callback_data.split(None, 1)[1]
-    keyboard = InlineKeyboardMarkup(
-    [
-    [
-    InlineKeyboardButton("ʙᴀᴄᴋ", callback_data=f"MANAGEMENT_CP")
-    ]
-    ]
-    )
-    if cb == "MANAGEMENT":
-        await CallbackQuery.edit_message_text(f"`something errors`",reply_markup=keyboard,parse_mode=enums.ParseMode.MARKDOWN)
-    else:
-        await CallbackQuery.edit_message_text(getattr(Helper, cb), reply_markup=keyboard)
-
-
-
-
-
-#------------------------------------------------------------------------------------------------------------------------
-# TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL | TOOL |
-#------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-@app.on_callback_query(filters.regex("TOOL_CP") & ~BANNED_USERS)
-async def helper_cb(client, CallbackQuery):
-    await CallbackQuery.edit_message_text(Helper.HELP_B, reply_markup=InlineKeyboardMarkup(BUTTONS.BBUTTON))
-
-
-@app.on_callback_query(filters.regex('TOOL_BACK'))      
-async def mb_plugin_button(client, CallbackQuery):
-    callback_data = CallbackQuery.data.strip()
-    cb = callback_data.split(None, 1)[1]
-    keyboard = InlineKeyboardMarkup(
-    [
-    [
-    InlineKeyboardButton("ʙᴀᴄᴋ", callback_data=f"TOOL_CP")
-    ]
-    ]
-    )
-    if cb == "TOOL":
-        await CallbackQuery.edit_message_text(f"`something errors`",reply_markup=keyboard,parse_mode=enums.ParseMode.MARKDOWN)
-    else:
-        await CallbackQuery.edit_message_text(getattr(Helper, cb), reply_markup=keyboard)
-
-
-
-
-
-
-#------------------------------------------------------------------------------------------------------------------------
-# MAIN HELP | MAIN HELP | MAIN HELP | MAIN HELP | MAIN HELP | MAIN HELP | MAIN HELP | MAIN HELP | MAIN HELP | MAIN HELP |
-#------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-@app.on_callback_query(filters.regex("MAIN_CP") & ~BANNED_USERS)
-async def helper_cb(client, CallbackQuery):
-    await CallbackQuery.edit_message_text(Helper.HELP_Sona, reply_markup=InlineKeyboardMarkup(BUTTONS.SBUTTON))
-
-        
-@app.on_callback_query(filters.regex('MAIN_BACK'))      
-async def mb_plugin_button(client, CallbackQuery):
-    callback_data = CallbackQuery.data.strip()
-    cb = callback_data.split(None, 1)[1]
-    keyboard = InlineKeyboardMarkup(
-    [
-    [
-    InlineKeyboardButton("ʙᴀᴄᴋ", callback_data=f"MAIN_CP")
-    ]
-    ]
-    )
-    if cb == "MAIN":
-        await CallbackQuery.edit_message_text(f"`something errors`",reply_markup=keyboard,parse_mode=enums.ParseMode.MARKDOWN)
-    else:
-        await CallbackQuery.edit_message_text(getattr(Helper, cb), reply_markup=keyboard)
-
-
-
-
-#------------------------------------------------------------------------------------------------------------------------
-# PROMOTION | PROMOTION | PROMOTION | PROMOTION | PROMOTION | PROMOTION | PROMOTION | PROMOTION | PROMOTION | PROMOTION |
-#------------------------------------------------------------------------------------------------------------------------
-
-
-@app.on_callback_query(filters.regex("PROMOTION_CP") & ~BANNED_USERS)
-async def helper_cb(client, CallbackQuery):
-    await CallbackQuery.edit_message_text(Helper.HELP_PROMOTION, reply_markup=InlineKeyboardMarkup(BUTTONS.PBUTTON))
-
-        
-@app.on_callback_query(filters.regex('PROMOTION_BACK'))      
-async def mb_plugin_button(client, CallbackQuery):
-    callback_data = CallbackQuery.data.strip()
-    cb = callback_data.split(None, 1)[1]
-    keyboard = InlineKeyboardMarkup(
-    [
-    [
-    InlineKeyboardButton("ʙᴀᴄᴋ", callback_data=f"PROMOTION_CP")
-    ]
-    ]
-    )
-    if cb == "PROMOTION":
-        await CallbackQuery.edit_message_text(f"`something errors`",reply_markup=keyboard,parse_mode=enums.ParseMode.MARKDOWN)
-    else:
-        await CallbackQuery.edit_message_text(getattr(Helper, cb), reply_markup=keyboard)
-
-        
-        
-
-#------------------------------------------------------------------------------------------------------------------------
-# ALL BOT'S | ALL BOT'S | ALL BOT'S | ALL BOT'S | ALL BOT'S | ALL BOT'S | ALL BOT'S | ALL BOT'S | ALL BOT'S | ALL BOT'S | 
-#------------------------------------------------------------------------------------------------------------------------
-
-
-
-@app.on_callback_query(filters.regex("ALLBOT_CP") & ~BANNED_USERS)
-async def helper_cb(client, CallbackQuery):
-    await CallbackQuery.edit_message_text(Helper.HELP_ALLBOT, reply_markup=InlineKeyboardMarkup(BUTTONS.ABUTTON))
-
-        
-@app.on_callback_query(filters.regex('ALLBOT_BACK'))      
-async def mb_plugin_button(client, CallbackQuery):
-    callback_data = CallbackQuery.data.strip()
-    cb = callback_data.split(None, 1)[1]
-    keyboard = InlineKeyboardMarkup(
-    [
-    [
-    InlineKeyboardButton("ʙᴀᴄᴋ", callback_data=f"ALLBOT_CP")
-    ]
-    ]
-    )
-    if cb == "ALLBOT":
-        await CallbackQuery.edit_message_text(f"`something errors`",reply_markup=keyboard,parse_mode=enums.ParseMode.MARKDOWN)
-    else:
-        await CallbackQuery.edit_message_text(getattr(Helper, cb), reply_markup=keyboard)
-
-
-#------------------------------------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------------------------------------
