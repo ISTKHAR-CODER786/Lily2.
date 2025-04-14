@@ -1,13 +1,9 @@
 import os
 import re
-import random
 
 import aiofiles
 import aiohttp
-
-from PIL import Image, ImageDraw, ImageEnhance
-from PIL import ImageFilter, ImageFont, ImageOps
-
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from unidecode import unidecode
 from youtubesearchpython.__future__ import VideosSearch
 
@@ -63,68 +59,58 @@ async def get_thumb(videoid):
 
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
-                if resp.status == 230:
+                if resp.status == 200:
                     f = await aiofiles.open(f"cache/thumb{videoid}.png", mode="wb")
                     await f.write(await resp.read())
                     await f.close()
 
-        
-        colors = ["white", "red", "orange", "yellow", "green", "cyan", "azure", "blue", "violet", "magenta", "pink", "chartreuse", "hex", "black", "plum", "rust"]
-        border = random.choice(colors)
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        image1 = changeImageSize(900, 400, youtube)
-        bg_bright = ImageEnhance.Brightness(image1)
-        bg_logo = bg_bright.enhance(1.1)
-        bg_contra = ImageEnhance.Contrast(bg_logo)
-        bg_logo = bg_contra.enhance(1.1)
-        logox = ImageOps.expand(bg_logo, border=7, fill=f"{border}")
-        background = changeImageSize(900, 400, logox)
-        # image2 = image1.convert("RGBA")
-        # background = image2.filter(filter=ImageFilter.BoxBlur(1))
-        #enhancer = ImageEnhance.Brightness(background)
-        #background = enhancer.enhance(0.9)
-        #draw = ImageDraw.Draw(background)
-        #arial = ImageFont.truetype("LilyXMusic/assets/font2.ttf", 30)
-        #font = ImageFont.truetype("LilyXMusic/assets/font.ttf", 30)
-        # draw.text((1110, 8), unidecode(app.name), fill="white", font=arial)
-        """
+        image1 = changeImageSize(1280, 720, youtube)
+        image2 = image1.convert("RGBA")
+        background = image2.filter(filter=ImageFilter.BoxBlur(10))
+        enhancer = ImageEnhance.Brightness(background)
+        background = enhancer.enhance(0.5)
+        draw = ImageDraw.Draw(background)
+        arial = ImageFont.truetype("LilyXMusic/assets/font2.ttf", 30)
+        font = ImageFont.truetype("LilyXMusic/assets/font.ttf", 30)
+        text_size = draw.textsize("LILY X MUSIC    ", font=font)
+        draw.text((1280 - text_size[0] - 10, 10), "LILY X MUSIC    ", fill="yellow", font=font)
         draw.text(
-            (1, 1),
+            (55, 560),
             f"{channel} | {views[:23]}",
-            (1, 1, 1),
+            (255, 255, 255),
             font=arial,
         )
         draw.text(
-            (1, 1),
+            (57, 600),
             clear(title),
-            (1, 1, 1),
+            (255, 255, 255),
             font=font,
         )
         draw.line(
-            [(1, 1), (1, 1)],
+            [(55, 660), (1220, 660)],
             fill="white",
-            width=1,
+            width=5,
             joint="curve",
         )
         draw.ellipse(
-            [(1, 1), (2, 1)],
+            [(918, 648), (942, 672)],
             outline="white",
             fill="white",
-            width=1,
+            width=15,
         )
         draw.text(
-            (1, 1),
+            (36, 685),
             "00:00",
-            (1, 1, 1),
+            (255, 255, 255),
             font=arial,
         )
         draw.text(
-            (1, 1),
+            (1185, 685),
             f"{duration[:23]}",
-            (1, 1, 1),
+            (255, 255, 255),
             font=arial,
         )
-        """
         try:
             os.remove(f"cache/thumb{videoid}.png")
         except:
@@ -134,3 +120,4 @@ async def get_thumb(videoid):
     except Exception as e:
         print(e)
         return YOUTUBE_IMG_URL
+        
